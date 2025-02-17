@@ -7,14 +7,5 @@
   "useTabs": false,
   "singleQuote": true,
   "printWidth": 80,
-  "jsxSingleQuote": true,
-  "htmlWhitespaceSensitivity": "ignore",
-  "overrides": [
-    {
-      "files": "*.hbs",
-      "options": {
-        "parser": "glimmer"
-      }
-    }
-  ]
+  "jsxSingleQuote": true
 }

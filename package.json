@@ -19,8 +19,8 @@
     "watch": "sass --watch src/resources/scss/app.scss  src/public/css/app.css",
     "start": "nodemon --inspect src/index.js",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.css|*.scss)\"",
-    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
+    "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.css|*.scss|*.js)\"",
+    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss|*.js)\""
   },
   "dependencies": {
     "express": "^4.21.2",
@@ -32,7 +32,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.1",
     "sass": "^1.84.0"
   }
 }
