@@ -15,20 +15,53 @@ class CourseController {
   }
 
   // [POST] /courses/store
-
   async store(req, res, next) {
     try {
-      const formData = req.body;
-      formData.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
-
-      const course = new Course(formData);
+      req.body.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
+      const course = new Course(req.body);
       await course.save(); // Lưu vào database
 
-      res.redirect('/'); // Chuyển hướng sau khi lưu thành công
+      res.redirect('/me/stored/courses'); // Chuyển hướng sau khi lưu thành công
     } catch (error) {
       console.error('Lỗi khi lưu khóa học:', error);
       res.status(500).json({ message: 'Lưu khóa học thất bại', error });
     }
+  }
+
+  // [GET] /courses/:id/edit
+  edit(req, res, next) {
+    Course.findById(req.params.id)
+      .lean()
+      .then((course) => {
+        res.render('courses/edit', { course });
+      })
+      .catch(next);
+  }
+
+  update(req, res, next) {
+    Course.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect('/me/stored/courses'))
+      .catch(next);
+  }
+
+  // [DELETE] /courses/:id
+  destroy(req, res, next) {
+    Course.delete({ _id: req.params.id })
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+  // [DELETE] /courses/:id/force
+  forceDestroy(req, res, next) {
+    Course.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+
+  // [PATCH] /courses/:id/restore
+  restore(req, res, next) {
+    Course.restore({ _id: req.params.id })
+      .then(() => res.redirect('back'))
+      .catch(next);
   }
 }
 export default new CourseController();
