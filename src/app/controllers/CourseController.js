@@ -47,7 +47,7 @@ class CourseController {
   // [DELETE] /courses/:id
   destroy(req, res, next) {
     Course.delete({ _id: req.params.id })
-      .then(() => res.redirect('back'))
+      .then(() => req.get('Referrer') || '/')
       .catch(next);
   }
   // [DELETE] /courses/:id/force
@@ -60,7 +60,7 @@ class CourseController {
   // [PATCH] /courses/:id/restore
   restore(req, res, next) {
     Course.restore({ _id: req.params.id })
-      .then(() => res.redirect('back'))
+      .then(() => req.get('Referrer') || '/')
       .catch(next);
   }
 }

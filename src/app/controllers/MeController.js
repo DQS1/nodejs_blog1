@@ -2,13 +2,17 @@ import Course from '../models/Course.js';
 
 class MeController {
   // [GET] /me/stored/courses
-  storedCourses(req, res, next) {
-    Course.find({})
-      .lean()
-      .then((courses) => {
-        return res.render('me/stored-courses', { courses });
-      })
-      .catch(next);
+  async storedCourses(req, res, next) {
+    try {
+      const deletedCount = await Course.countDocumentsWithDeleted({
+        deleted: true
+      }).lean();
+      const courses = await Course.find({}).lean();
+
+      res.render('me/stored-courses', { deletedCount, courses });
+    } catch (error) {
+      next(error);
+    }
   }
 
   // [GET] /me/trash/courses
